@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <style>
+    html, body{
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .logo{
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="row">
+        <table class="striped highlight centered">
+          <thead>
+            <tr>
+                <th>Logo</th>
+                <th>Nome</th>
+                <th>Site</th>
+                <th>Marca Cadastro</th>
+            </tr>
+          </thead>
+  
+          <tbody id="tabelainfo">
+            
+
+          </tbody>
+
+        </table>
+    </div>
+  </div>
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+    getInfoBancos()
+  })
+
+  function getInfoBancos(){
+    $.ajax({
+      url: "http://127.0.0.1:5000/bancos",
+      type: "GET",
+      dataType: "json",
+      contentType: "application/json",
+      beforeSend: function(){
+        console.log("Obtendo Informações!")
+      },
+      success: function(data) { 
+        var aux = ""
+        data.forEach(element => {
+          aux += geraTabela( element.logo, element.display_name, element.website, element.name )
+        });
+        $( "#tabelainfo" ).html( aux );
+      },
+      error: function( data ){
+        console.log( "Erro : " + JSON.parse( data ) )
+        dados = false
+      }
+    })
+  }
+
+  function geraTabela(logo, nome, site, marca){
+    var aux = ""
+    aux += '<tr>'
+    aux += `<td><img class="logo" src="${logo}" alt=""></td>`
+    aux += `<td>${nome}</td>`
+    aux += `<td><a href="${site}">Clique Aqui</a></td>`
+    aux += `<td>${marca}</td>`
+    aux += '</tr>'
+    return aux
+  }
+
+  function getInfoSite(){
+    
+  }
+    
+</script>
+
+</html>

@@ -6,3 +6,16 @@
 
 ## HTML CSS JS
 - Criado uma pagina empresa que esta consumindo api em Flask criada, e assim conseguindo obter as informações requeridas nas rotas do FLask e indiretamente na API da Belvo
+
+
+# Pastas
+
+### Api Flask Rotas
+- Onde esta o mais ou menos organizado os arquivos para a API !
+- Arquivo "./belvo/config-api.json" colocar suas credenciais pra qual ambiente ira usar!
+- Arquivo "./apiBelvo.py" organização separando a biblioteca da belvo que comunica com a API deles !
+- Arquivo "./mainApi.py" diretamente o codigo da "API de Redirecionamento" com o Flask
+
+### Web Paginas
+- Onde sera feito meio que as Views para testar a API !
+

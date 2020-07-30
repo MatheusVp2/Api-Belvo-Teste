@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <style>
+        .card_img{
+            width: 300px;
+            background-color: #91c5f2;
+            border-radius: 45%;
+        }
+
+        .bordinha{
+            border-radius: 15px !important;
+        }
+        .info{
+            font-size: 15pt !important;
+        }
+
+        .pad{
+            padding: 3px;
+        }
+
+        .bad_info{
+            background-color: #91c5f2;
+            border-radius: 3px;
+            color: black !important;
+            font-weight: 600 !important; 
+        }
+    </style>
+
+</head>
+<body>
+    
+    <div class="container-fluid">
+        <div class="row" id="tabelainfo">
+
+
+            <!-- <div class="col s12 m4 bordinha">
+                <div class="card blue-grey darken-1 bordinha">
+                    <div class="card-content white-text bordinha" style="background-color: #006fcf;">
+                        <span class="card-title">
+                            <img class="card_img" src="https://belvo-api-media-sandbox.s3.amazonaws.com/logos/amex.png" alt="">
+                        </span>
+                        <br>
+                        <div class="row">
+                            <div class="col s6">
+                                <p class="info">Saldo : <span class="bad_info pad">4.459,20</span></p>
+                            </div>
+                            <div class="col s6">
+                                <p class="info">Nome : <span class="bad_info pad">Matheus Oliveira</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col ">
+                                <p class="info">Banco : <span class="bad_info pad">American Express</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-action bordinha center-align">
+                        <a href="#" class="">Acessar Pagina</a>
+                    </div>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+</body>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
+    <script>
+            getInfoBancos()
+
+            function getInfoBancos(){
+                $.ajax({
+                url: "http://127.0.0.1:5000/bancos",
+                type: "GET",
+                dataType: "json",
+                contentType: "application/json",
+                beforeSend: function(){
+                    console.log("Obtendo Informações!")
+                },
+                success: function(data) { 
+                    console.log(data)
+                    var aux = ""
+                    data.forEach(element => {
+                        aux += getCartao( element.logo, element.primary_color )
+                    });
+                    console.log(aux)
+                    $( "#tabelainfo" ).html( aux );
+                },
+                error: function( data ){
+                    console.log( "Erro : " + data )
+                }
+                })
+            }
+
+        function getCartao(logo, color ){
+            aux = ""
+            aux += '<div class="col s12 m4 bordinha">'
+            aux += '<div class="card blue-grey darken-1 bordinha">'
+            aux += `<div class="card-content white-text bordinha" style="background-color: ${color};">`
+            aux += '<span class="card-title">'
+            aux += `<img class="card_img" src="${logo}" alt="">`
+            aux += '</span>'
+            aux += '<br>'
+            aux += '<div class="row">'
+            aux += '<div class="col s6">'
+            aux += '<p class="info">Saldo : <span class="bad_info pad">4.459,20</span></p>'
+            aux += '</div>'
+            aux += '<div class="col s6">'
+            aux += '<p class="info">Nome : <span class="bad_info pad">Matheus Oliveira</span></p>'
+            aux += '</div>'
+            aux += '</div>'
+            aux += '<div class="row">'
+            aux += '<div class="col ">'
+            aux += '<p class="info">Banco : <span class="bad_info pad">American Express</span></p>'
+            aux += '</div>'
+            aux += '</div>'
+            aux += '</div>'
+            aux += '<div class="card-action bordinha center-align">'
+            aux += '<a href="#" class="">Acessar Pagina</a>'
+            aux += '</div>'
+            aux += '</div>'
+            aux += '</div>'
+            return aux
+        }
+
+    </script>
+
+</html>
